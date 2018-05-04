@@ -1,6 +1,6 @@
 # FAIRPLAY
 
-> ⚠️ **Este é um projeto experimental.**
+> ⚠️ **Projeto experimental.**
 
 Este é o repositório principal que contém 2 sub-repositórios (git submodules): 
 
@@ -53,18 +53,6 @@ SOCIAL_GOOGLE_CLIENT_ID=
 SOCIAL_GOOGLE_CLIENT_SECRET=
 ```
 
-Copie e ajuste o arquivo de configuração do laravel-echo-server
-
-```
-cd /docker/laravel-echo-server
-cp laravel-echo-server.example.json laravel-echo-server.json
-
-# Apenas para produção
-
-devMode: true
-
-```
-
 ## 🐬 FAIRPLAY-WEB
 
 ```
@@ -86,9 +74,18 @@ cp .env-example .env
 Altere as variáveis de ambiente
 ```
 MYSQL_ROOT_PASSWORD=<senha>
+```
 
-# Apenas para o ambiente de produção, altere:
-NODE_ENTRYPOINT=/bin/bash -c "yarn && yarn build"
+Copie e ajuste o arquivo de configuração do laravel-echo-server
+
+```
+cd /docker/laravel-echo-server
+cp laravel-echo-server.example.json laravel-echo-server.json
+
+# Apenas para produção
+
+devMode: true
+
 ```
 
 Adicione os endereços
@@ -142,3 +139,21 @@ As dependências do frontend são resolvidas automaticamente quando o container 
 # .env
 NODE_ENTRYPOINT=/bin/bash -c "yarn && yarn build"
 ```
+
+# PRODUÇÃO
+
+Os mesmos procedimentos devem ser executados, com passos complementares.
+
+### GIT CLONE --RECURSIVE
+
+TODO
+
+### .ENV
+```
+NODE_ENTRYPOINT=/bin/bash -c "yarn && yarn build"
+```
+
+### Caddy
+
+- Domínio https://site  / https://api.site
+- Descomentar / comentar confiuracoes
