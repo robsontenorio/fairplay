@@ -20,6 +20,8 @@ A infraestrtura do projeto é baseada totalmente no Docker / Docker Compose:
 
 ✔️ Remova dados de instalações anteriores: rm -rf ~/.storage
 
+✔️ Clone os repositórios
+
 ✔️ Configure fairplay-api (backend)
 
 ✔️ Configure fairplay-web (frontend)
@@ -27,6 +29,17 @@ A infraestrtura do projeto é baseada totalmente no Docker / Docker Compose:
 ✔️ Configure o Docker
 
 ✔️ Inicie os serviços
+
+## 📖 REPOSITÓRIOS
+
+Clone o repositório principal recursivamente:
+
+```
+git clone --recursive https://github.com/robsontenorio/fairplay
+```
+
+Em seguida, no VSCODE, altere os branches dos sub-repositórios para "MASTER".
+
 
 ## 🐉  FAIRPLAY-API
 
