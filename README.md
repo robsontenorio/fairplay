@@ -1,34 +1,34 @@
 # FAIRPLAY
 
-> Este é um projeto experimental. 
+> ⚠️ **Este é um projeto experimental.**
 
-Este é o repositório principal que contém 2 sub-repositórios (git submodules): FAIRPLAY-API e FAIRPLAY-WEB. A infraestrtura do projeto é baseada totalmente no Docker.
+Este é o repositório principal que contém 2 sub-repositórios (git submodules): 
+
+- **fairplay-api**: Laravel 5.x, Mysql 5.7, Laravel Echo Server (websockets)
+- **fairplay-web**: Vue 2.x, Nuxt 1.x, Vuetify 1.x
+
+A infraestrtura do projeto é baseada totalmente no Docker / Docker Compose:
 
 - **/docker**: arquivos base de configuração dos serviços. Contém toda a infraestrutura necessária para o *frontend* e *backend*.
 - **docker-compose.yml**: composição de serviços Docker.
 - **.env**:  variáveis de ambiente utilizadas por *docker-compose.yml*.
 
 
-## FAIRPLAY-API (backend)
-
-Tecnologias:
-- Laravel 5.x
-- Mysql 5.7
-- Laravel Echo Server (websockets)
-
-## FAIRPLAY-WEB (frontend)
-
-Tecnologias:
-- Vue 2.x
-- Nuxt 1.x
-- Vuetify
-
-
 # INSTALAÇÃO
 
-> Pré-requisito: Docker
+✔️ Instale o Docker na máquina hospedeira
 
-## FAIRPLAY-API
+✔️ Remova dados de instalações anteriores: rm -rf ~/.storage
+
+✔️ Configure fairplay-api (backend)
+
+✔️ Configure fairplay-web (frontend)
+
+✔️ Configure o Docker
+
+✔️ Inicie os serviços
+
+## 🐉  FAIRPLAY-API
 
 Altere as variáveis de ambiente
 
@@ -65,7 +65,7 @@ devMode: true
 
 ```
 
-## FAIRPLAY-WEB
+## 🐬 FAIRPLAY-WEB
 
 ```
 cd fairplay-web
@@ -88,7 +88,7 @@ Altere as variáveis de ambiente
 MYSQL_ROOT_PASSWORD=<senha>
 
 # Apenas para o ambiente de produção, altere:
-NODE_ENTRYPOINT=/bin/bash -c yarn && yarn build
+NODE_ENTRYPOINT=/bin/bash -c "yarn && yarn build"
 ```
 
 Adicione os endereços
@@ -107,13 +107,17 @@ Suba os serviços pela primeira vez
 ```
 docker-composer up --build
 ```
-> *--build* força que as alterações dos arquivos de configurações sejam sempre reconstruídas quando os serviços sobem.
+> **NOTA**: `--build` força que as alterações dos arquivos de configurações sejam sempre reconstruídas quando os serviços sobem.
 
-# Setup
 
-Crie o banco de dados com o mesmo nome utilizado em `fairplay-api/.env -> DB_DATABASE` .
+Crie o banco de dados 
 
-Instale as dependências do backend
+```
+# com o mesmo nome utilizado em
+ `fairplay-api/.env -> DB_DATABASE` .
+``` 
+
+Dependências do backend
 
 ```
 # acesse o bash do container php-fpm
@@ -128,4 +132,13 @@ php artisan storage:link &&
 
 chmod -R 777 storage bootstrap/cache && 
 rm -rf storage/logs/*.log
+```
+
+Dependências do frontend
+
+```
+As dependências do frontend são resolvidas automaticamente quando o container inicia, via:
+
+# .env
+NODE_ENTRYPOINT=/bin/bash -c "yarn && yarn build"
 ```
