@@ -53,6 +53,18 @@ SOCIAL_GOOGLE_CLIENT_ID=
 SOCIAL_GOOGLE_CLIENT_SECRET=
 ```
 
+Copie e ajuste o arquivo de configuração do laravel-echo-server
+
+```
+cd /docker/laravel-echo-server
+cp laravel-echo-server.example.json laravel-echo-server.json
+
+# Apenas para produção
+
+devMode: true
+
+```
+
 ## FAIRPLAY-WEB
 
 ```
@@ -76,7 +88,7 @@ Altere as variáveis de ambiente
 MYSQL_ROOT_PASSWORD=<senha>
 
 # Apenas para o ambiente de produção, altere:
-NODE_ENTRYPOINT=yarn build
+NODE_ENTRYPOINT=/bin/bash -c yarn && yarn build
 ```
 
 Adicione os endereços

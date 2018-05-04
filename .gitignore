@@ -1,2 +1,3 @@
 .env
 .DS_STORE
+/docker/laravel-echo-server/laravel-echo-server.json
