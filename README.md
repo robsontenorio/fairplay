@@ -16,9 +16,7 @@ A infraestrtura do projeto é baseada totalmente no Docker / Docker Compose:
 
 # INSTALAÇÃO
 
-✔️ Instale o Docker na máquina hospedeira
-
-✔️ Remova dados de instalações anteriores: rm -rf ~/.storage
+✔️ Preparando
 
 ✔️ Clone os repositórios
 
@@ -29,6 +27,25 @@ A infraestrtura do projeto é baseada totalmente no Docker / Docker Compose:
 ✔️ Configure o Docker
 
 ✔️ Inicie os serviços
+
+## 👍 PREPARANDO
+
+1) Instale o Docker na máquina hospedeira.
+
+2) Para fazer uma instalação limpa, removendo dados de instalações anteriores (mysql, caddy, redis ...), execute:
+
+```
+# Este é o caminho do storage configurado nas variáveis.
+
+rm -rf ~/.storage
+```
+
+3) Caso deseje remover todas as imagens e containers execute:
+
+```
+docker system prune -a && 
+docker rmi $(docker images -a -q)
+```
 
 ## 📖 REPOSITÓRIOS
 
@@ -77,7 +94,7 @@ API_URL_SOCKET = http://api.fairplay.test:6001
 API_URL_STORAGE = http://api.fairplay.test/storage
 ```
 
-## DOCKER
+## 💻 DOCKER
 
 Copie o arquivo de variáveis de ambiente
 ```
