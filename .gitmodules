@@ -1,0 +1,3 @@
+[submodule "fairplay-api"]
+	path = fairplay-api
+	url = https://github.com/robsontenorio/fairplay-api.git
