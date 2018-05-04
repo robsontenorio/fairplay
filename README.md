@@ -30,7 +30,7 @@ A infraestrtura do projeto é baseada totalmente no Docker / Docker Compose:
 
 ## 👍 PREPARANDO
 
-1) Instale o Docker na máquina hospedeira.
+1) Certifique-se que tenha Docker instalado na máquina hospedeira.
 
 2) Para fazer uma instalação limpa, removendo dados de instalações anteriores (mysql, caddy, redis ...), execute:
 
@@ -49,7 +49,7 @@ docker rmi $(docker images -a -q)
 
 ## 📖 REPOSITÓRIOS
 
-Clone o repositório principal recursivamente:
+Clone o repositório principal com seus sub-módulos (recursivamente):
 
 ```
 git clone --recursive https://github.com/robsontenorio/fairplay
@@ -85,6 +85,8 @@ SOCIAL_GOOGLE_CLIENT_SECRET=
 
 ## 🐬 FAIRPLAY-WEB
 
+Altere as variáveis de ambiente
+
 ```
 cd fairplay-web
 cp .env.example .env
@@ -96,26 +98,18 @@ API_URL_STORAGE = http://api.fairplay.test/storage
 
 ## 💻 DOCKER
 
-Copie o arquivo de variáveis de ambiente
-```
-cp .env-example .env
-```
-
 Altere as variáveis de ambiente
 ```
+cp .env-example .env
+
 MYSQL_ROOT_PASSWORD=<senha>
 ```
 
-Copie e ajuste o arquivo de configuração do laravel-echo-server
+Ajuste a configuração do Laravel Echo Server (websockets)
 
 ```
 cd /docker/laravel-echo-server
 cp laravel-echo-server.example.json laravel-echo-server.json
-
-# Apenas para produção
-
-devMode: true
-
 ```
 
 Adicione os endereços
@@ -174,13 +168,30 @@ NODE_ENTRYPOINT=/bin/bash -c "yarn && yarn build"
 
 Os mesmos procedimentos devem ser executados, com passos complementares.
 
-### GIT CLONE --RECURSIVE
+## Repositórios
 
-TODO
+GIT CLONE --RECURSIVE
 
-### .ENV
+## Variáveis de Ambiente
+
+Docker
+
 ```
+# .env
+
 NODE_ENTRYPOINT=/bin/bash -c "yarn && yarn build"
+```
+
+Frontend
+
+Backend
+
+
+### Laravel Echo Server
+
+```
+# /docker/laravel-echo-server/laravel-echo-server.json
+devMode: true
 ```
 
 ### Caddy
