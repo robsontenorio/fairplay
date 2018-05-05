@@ -135,3 +135,19 @@ services:
     networks:
       - frontend
       - backend
+
+  ######## PHP-WORKER (QUEUES) ########
+
+  php-worker:
+      build:
+        context: ./docker/php-worker
+        args:
+          - PHP_VERSION=${PHP_VERSION}
+      volumes:
+        - ${APP_BACKEND_PATH}:/var/www:cached
+        - ./docker/php-worker/supervisord.d:/etc/supervisord.d
+      depends_on:
+        - php-fpm      
+        - redis
+      networks:
+        - backend

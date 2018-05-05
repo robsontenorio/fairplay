@@ -28,7 +28,7 @@ A infraestrtura do projeto é baseada totalmente no Docker / Docker Compose:
 
 ✔️ Inicie os serviços
 
-## 👍 PREPARANDO
+## 👍 Preparando
 
 1) Certifique-se que tenha Docker instalado na máquina hospedeira.
 
@@ -47,7 +47,7 @@ docker system prune -a &&
 docker rmi $(docker images -a -q)
 ```
 
-## 📖 REPOSITÓRIOS
+## 📖 Repositórios
 
 Clone o repositório principal com seus sub-módulos (recursivamente):
 
@@ -58,7 +58,7 @@ git clone --recursive https://github.com/robsontenorio/fairplay
 Em seguida, no VSCODE, altere os branches dos sub-repositórios para "MASTER".
 
 
-## 🐉  FAIRPLAY-API
+## 🐉  fairplay-api
 
 Altere as variáveis de ambiente
 
@@ -83,7 +83,7 @@ SOCIAL_GOOGLE_CLIENT_ID=
 SOCIAL_GOOGLE_CLIENT_SECRET=
 ```
 
-## 🐬 FAIRPLAY-WEB
+## 🐬 fairplay-web
 
 Altere as variáveis de ambiente
 
@@ -96,7 +96,7 @@ API_URL_SOCKET = http://api.fairplay.test:6001
 API_URL_STORAGE = http://api.fairplay.test/storage
 ```
 
-## 💻 DOCKER
+## 💻 Docker
 
 Altere as variáveis de ambiente
 ```
@@ -129,6 +129,8 @@ Suba os serviços pela primeira vez
 docker-composer up --build
 ```
 > **NOTA**: `--build` força que as alterações dos arquivos de configurações sejam sempre reconstruídas quando os serviços sobem.
+
+> **NOTA**: No modo de desenvolvimento o comando `yarn dev` será executado no frontend, para execução em modo *hot reload*. Aguarda a compilação inicial finalizar antes de acessar o sistema.
 
 
 Crie o banco de dados 
@@ -164,6 +166,11 @@ As dependências do frontend são resolvidas automaticamente quando o container 
 NODE_ENTRYPOINT=/bin/bash -c "yarn && yarn build"
 ```
 
+## URLs
+
+- frontend: http://fairplay.test
+- backend: http://api.fairplay.test
+
 # PRODUÇÃO
 
 Os mesmos procedimentos devem ser executados, com passos complementares.
@@ -198,3 +205,7 @@ devMode: true
 
 - Domínio https://site  / https://api.site
 - Descomentar / comentar confiuracoes
+
+# NOTAS
+
+- Ao alterar arquivos `.env` (backend, frontend ou docker) os serviçoes precisam ser reiniciados.
