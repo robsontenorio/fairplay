@@ -35,7 +35,7 @@ A infraestrtura do projeto é baseada totalmente no Docker / Docker Compose:
 2) Para fazer uma instalação limpa, removendo dados de instalações anteriores (mysql, caddy, redis ...), execute:
 
 ```
-# Este é o caminho do storage configurado nas variáveis.
+# Este é o caminho do storage configurado nas variáveis de ambiente.
 
 rm -rf ~/.storage
 ```
@@ -130,6 +130,12 @@ docker-compose up --build
 ```
 > **NOTA**: `--build` força que as alterações dos arquivos de configurações sejam sempre reconstruídas quando os serviços sobem.
 
+## ✏️ Notas
+
+- Ao alterar arquivos `.env` (backend, frontend ou docker) os serviços precisam ser reiniciados.
+
+- No caso do frontend a aplicação deve ser reconstruída com `yarn dev` ou `yarn build` (produção).
+
 
 ## ▶ Start
 
@@ -158,8 +164,9 @@ chmod -R 777 storage bootstrap/cache &&
 rm -rf storage/logs/*.log
 ```
 
-Saia do terminal anterior e agora acesse o bash do container `node` para executar o frontend em modo desenvolvimento com *hot reload*.
+Saia do terminal anterior e agora acesse o bash do container `node` para executar o frontend em modo desenvolvimento com *hot reload*. 
 
+> **NOTA**: Este procedimento é apenas em desenvolvimento. Em produção a aplicação de frontend é construída através do entrypoint (`yarn build`).
 ```
 docker-compose exec node bash
 yarn && 
@@ -215,10 +222,3 @@ docker-compose up -d --build
 ```
 
 > **NOTA**: -d roda os serviços em background.
-
-
-# NOTAS
-
-- Ao alterar arquivos `.env` (backend, frontend ou docker) os serviços precisam ser reiniciados.
-
-- No caso do frontend a aplicação deve ser reconstruída com `yarn dev` ou `yarn build` (produção).
