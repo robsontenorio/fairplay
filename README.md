@@ -63,16 +63,17 @@ Em seguida, no VSCODE, altere os branches dos sub-repositórios para "MASTER".
 Altere as variáveis de ambiente
 
 ```
-cd fairplay-api
-cp .env.example .env
+cp fairplay-api/.env.example fairplay-api/.env
+```
 
+```
 APP_URL=http://api.fairplay.test
 APP_URL_FRONTEND=http://fairplay.test
 
 
 DB_DATABASE=fairplaydb_dev
 DB_USERNAME=root
-DB_PASSWORD=<mesma senha anterior>
+DB_PASSWORD=<senha>
 
 SOCIAL_FACEBOOK_REDIRECT=http://api.fairplay.test/api/auth/redirect/facebook
 SOCIAL_FACEBOOK_CLIENT_ID=
@@ -88,9 +89,9 @@ SOCIAL_GOOGLE_CLIENT_SECRET=
 Altere as variáveis de ambiente
 
 ```
-cd fairplay-web
-cp .env.example .env
-
+cp fairplay-web/.env.example fairplay-web/.env
+```
+```
 API_URL = http://api.fairplay.test/api
 API_URL_SOCKET = http://api.fairplay.test:6001
 API_URL_STORAGE = http://api.fairplay.test/storage
@@ -102,14 +103,13 @@ Altere as variáveis de ambiente
 ```
 cp .env.example .env
 
-MYSQL_ROOT_PASSWORD=<senha>
+MYSQL_ROOT_PASSWORD=<mesma senha anterior>
 ```
 
 Ajuste a configuração do Laravel Echo Server (websockets)
 
 ```
-cd /docker/laravel-echo-server
-cp laravel-echo-server.example.json laravel-echo-server.json
+cp docker/laravel-echo-server/laravel-echo-server.example.json docker/laravel-echo-server/laravel-echo-server.json
 ```
 
 Adicione os endereços
@@ -126,27 +126,26 @@ nano /etc/hosts
 Suba os serviços pela primeira vez
 
 ```
-docker-composer up --build
+docker-compose up --build
 ```
 > **NOTA**: `--build` força que as alterações dos arquivos de configurações sejam sempre reconstruídas quando os serviços sobem.
 
-> **NOTA**: No modo de desenvolvimento o comando `yarn dev` será executado no frontend, para execução em modo *hot reload*. Aguarda a compilação inicial finalizar antes de acessar o sistema.
 
+## ▶ Start
 
-Crie o banco de dados 
-
-```
-# com o mesmo nome utilizado em
- `fairplay-api/.env -> DB_DATABASE` .
-``` 
-
-Dependências do backend
+Use a ferramenta de preferência para criar o banco de dados.
 
 ```
-# acesse o bash do container php-fpm
-docker-compose exec php-fpm bash
+# o nome do banco deve ser o mesmo utilizado nas variáveis de ambiente
 
-# instalar
+create database fairplaydb_dev;
+```
+
+Em outro terminal, no repositório principal, acesse o bash do container `php-fpm` e instale as dependências do backend.
+
+```
+docker-compose exec php-fpm bash && 
+
 composer install && 
 php artisan migrate --seed && 
 php artisan key:generate && 
@@ -157,21 +156,11 @@ chmod -R 777 storage bootstrap/cache &&
 rm -rf storage/logs/*.log
 ```
 
-Dependências do frontend
-
-```
-As dependências do frontend são resolvidas automaticamente quando o container inicia, via:
-
-# .env
-NODE_ENTRYPOINT=/bin/bash -c "yarn && yarn build"
-```
-
-## 🔗 Start
-
-Em outro terminal, no repositório principal, acesse o bash do serviço `node` para executar a aplicação em modo desenvolvimento com *hot reload*.
+Saia do terminal anterior e agora acesse o bash do container `node` para executar o frontend em modo desenvolvimento com *hot reload*.
 
 ```
 docker-compose exec node bash
+yarn && 
 yarn dev
 ```
 
@@ -184,35 +173,39 @@ yarn dev
 
 # PRODUÇÃO
 
-Os mesmos procedimentos anteriores devem ser executados, com os seguintes passos complementares.
+Os mesmos procedimentos anteriores devem ser executados, com as seguintes alterações.
 
-## Repositórios
-
-GIT CLONE --RECURSIVE
-
-## Variáveis de Ambiente
-
-Docker
+- Ajuste as variáveis de ambiente do Docker
 
 ```
 # .env
-
 NODE_ENTRYPOINT=/bin/bash -c "yarn && yarn build"
 ```
 
-Frontend
+- Ajuste as variáveis de ambiente do frontend
 
-Backend
+- Ajuste as variáveis de ambiente do backend
 
-Start
+- Laravel Echo Server
 
-Suba os serviços a primeira vez e observe nos logs se tudo ocorreu bem. Acesse a aplicação na url.
+```
+# /docker/laravel-echo-server/laravel-echo-server.json
+devMode: true
+```
+
+- Caddy
+
+  - Os endereços de frontend e backend devem começar com "https://"
+  - Descomentar/comentar configurações para produção em `/docker/caddy/Caddyfile`
+
+
+- Suba os serviços a primeira vez e observe nos logs se tudo ocorreu bem. Acesse a aplicação da url de proução.
 ```
 docker-compose up --build
 ```
 
 
-Em seguida, pare os serviços e suba em modo background.
+- Em seguida, pare os serviços e suba em modo background.
 
 ```
 docker-compose up -d --build
@@ -221,18 +214,6 @@ docker-compose up -d --build
 > **NOTA**: -d roda os serviços em background.
 
 
-### Laravel Echo Server
-
-```
-# /docker/laravel-echo-server/laravel-echo-server.json
-devMode: true
-```
-
-### Caddy
-
-- Domínio https://site  / https://api.site
-- Descomentar / comentar confiuracoes
-
 # NOTAS
 
-- Ao alterar arquivos `.env` (backend, frontend ou docker) os serviçoes precisam ser reiniciados.
+- Ao alterar arquivos `.env` (backend, frontend ou docker) os serviços precisam ser reiniciados.
