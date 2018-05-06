@@ -139,15 +139,33 @@ services:
   ######## PHP-WORKER (QUEUES) ########
 
   php-worker:
+      image: '${APP_NAME}-php-worker:1.0'
+      container_name: '${APP_NAME}-php-worker'
       build:
         context: ./docker/php-worker
         args:
           - PHP_VERSION=${PHP_VERSION}
       volumes:
         - ${APP_BACKEND_PATH}:/var/www:cached
-        - ./docker/php-worker/supervisord.d:/etc/supervisord.d
+        - ./docker/php-worker/supervisord.d:/etc/supervisord.d        
       depends_on:
         - php-fpm      
         - redis
       networks:
         - backend
+
+  ######## CRONTAB ########
+  crontab:
+    image: '${APP_NAME}-crontab:1.0'
+    container_name: '${APP_NAME}-crontab'
+    build:
+      context: ./docker/crontab
+      args:
+        - PHP_VERSION=${PHP_VERSION}
+    volumes:
+      - ${APP_BACKEND_PATH}:/var/www:cached
+    depends_on:
+      - php-fpm      
+      - redis
+    networks:
+      - backend

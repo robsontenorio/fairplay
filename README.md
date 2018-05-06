@@ -166,14 +166,14 @@ As dependências do frontend são resolvidas automaticamente quando o container 
 NODE_ENTRYPOINT=/bin/bash -c "yarn && yarn build"
 ```
 
-## URLs
+## 🔗 URLs
 
 - frontend: http://fairplay.test
 - backend: http://api.fairplay.test
 
 # PRODUÇÃO
 
-Os mesmos procedimentos devem ser executados, com passos complementares.
+Os mesmos procedimentos anteriores devem ser executados, com os seguintes passos complementares.
 
 ## Repositórios
 
