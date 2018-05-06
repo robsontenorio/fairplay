@@ -38,22 +38,3 @@ api.fairplay.test:80 {
     # Change the first list to listen on port 443 when enabling TLS        
     #PRODUCTION -> tls robsontenorio@me.com
 }
-
-laradock1.demo:80 {
-    root /var/www/public
-    # Create a Webhook in git.
-    #git {
-	#repo https://github.com/xxx/xxx
-    #    path /home/xxx
-    #    #interval 60
-    #    hook  webhook laradock
-    #    hook_type   generic
-    #}
-
-}
-
-laradock2.demo:80 {
-    # Create a Proxy and cors.
-    #proxy domain.com
-	#cors
-}

@@ -144,8 +144,10 @@ create database fairplaydb_dev;
 Em outro terminal, no repositório principal, acesse o bash do container `php-fpm` e instale as dependências do backend.
 
 ```
-docker-compose exec php-fpm bash && 
+# bash
+docker-compose exec php-fpm bash  
 
+# install
 composer install && 
 php artisan migrate --seed && 
 php artisan key:generate && 
@@ -175,6 +177,7 @@ yarn dev
 
 Os mesmos procedimentos anteriores devem ser executados, com as seguintes alterações.
 
+- Em produção todas urls devem ter o prefixo https://
 - Ajuste as variáveis de ambiente do Docker
 
 ```
@@ -190,22 +193,22 @@ NODE_ENTRYPOINT=/bin/bash -c "yarn && yarn build"
 
 ```
 # /docker/laravel-echo-server/laravel-echo-server.json
-devMode: true
+devMode: false
 ```
 
 - Caddy
 
-  - Os endereços de frontend e backend devem começar com "https://"
-  - Descomentar/comentar configurações para produção em `/docker/caddy/Caddyfile`
+  - Os endereços de frontend e backend devem começar com "https://" e sem a porta.
+  - Descomentar/comentar configurações para produção em `docker/caddy/Caddyfile`.
 
 
-- Suba os serviços a primeira vez e observe nos logs se tudo ocorreu bem. Acesse a aplicação da url de proução.
+- Suba os serviços a primeira vez e observe nos logs se tudo ocorreu bem. Todas as imagens setão baixadas e instaladas (+- 10min). 
 ```
 docker-compose up --build
 ```
 
 
-- Em seguida, pare os serviços e suba em modo background.
+- Como não existe um opção para um segundo terminal, pare os serviços e suba em modo background. E execute o processo de "Start".
 
 ```
 docker-compose up -d --build
@@ -217,3 +220,5 @@ docker-compose up -d --build
 # NOTAS
 
 - Ao alterar arquivos `.env` (backend, frontend ou docker) os serviços precisam ser reiniciados.
+
+- No caso do frontend a aplicação deve ser reconstruída com `yarn dev` ou `yarn build` (produção).
