@@ -79,7 +79,7 @@ services:
       context: ./docker/caddy
     volumes:
       - ${APP_BACKEND_PATH}:/var/www/api:cached
-      - ${APP_FRONTEND_PATH}:/var/www/web
+      - ${APP_FRONTEND_PATH}:/var/www/web:cached
       - ${DATA_STORAGE_PATH}/caddy:/root/.caddy
       - ${CADDY_CONF}:/etc/Caddyfile
       - ${CADDY_LOG}:/var/log/caddy      

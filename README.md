@@ -100,7 +100,7 @@ API_URL_STORAGE = http://api.fairplay.test/storage
 
 Altere as variáveis de ambiente
 ```
-cp .env-example .env
+cp .env.example .env
 
 MYSQL_ROOT_PASSWORD=<senha>
 ```
@@ -166,10 +166,21 @@ As dependências do frontend são resolvidas automaticamente quando o container 
 NODE_ENTRYPOINT=/bin/bash -c "yarn && yarn build"
 ```
 
-## 🔗 URLs
+## 🔗 Start
+
+Em outro terminal, no repositório principal, acesse o bash do serviço `node` para executar a aplicação em modo desenvolvimento com *hot reload*.
+
+```
+docker-compose exec node bash
+yarn dev
+```
+
 
 - frontend: http://fairplay.test
 - backend: http://api.fairplay.test
+
+
+
 
 # PRODUÇÃO
 
@@ -192,6 +203,22 @@ NODE_ENTRYPOINT=/bin/bash -c "yarn && yarn build"
 Frontend
 
 Backend
+
+Start
+
+Suba os serviços a primeira vez e observe nos logs se tudo ocorreu bem. Acesse a aplicação na url.
+```
+docker-compose up --build
+```
+
+
+Em seguida, pare os serviços e suba em modo background.
+
+```
+docker-compose up -d --build
+```
+
+> **NOTA**: -d roda os serviços em background.
 
 
 ### Laravel Echo Server
