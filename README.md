@@ -67,19 +67,19 @@ cp fairplay-api/.env.example fairplay-api/.env
 ```
 
 ```
-APP_URL=http://api.fairplay.test
-APP_URL_FRONTEND=http://fairplay.test
+APP_URL=http://localhost:8081
+APP_URL_FRONTEND=http://localhost
 
 
 DB_DATABASE=fairplaydb_dev
 DB_USERNAME=root
 DB_PASSWORD=<senha>
 
-SOCIAL_FACEBOOK_REDIRECT=http://api.fairplay.test/api/auth/redirect/facebook
+SOCIAL_FACEBOOK_REDIRECT=http://localhost:8081/api/auth/redirect/facebook
 SOCIAL_FACEBOOK_CLIENT_ID=
 SOCIAL_FACEBOOK_CLIENT_SECRET=
 
-SOCIAL_GOOGLE_REDIRECT=http://api.fairplay.test/api/auth/redirect/google
+SOCIAL_GOOGLE_REDIRECT=http://localhost:8081/api/auth/redirect/google
 SOCIAL_GOOGLE_CLIENT_ID=
 SOCIAL_GOOGLE_CLIENT_SECRET=
 ```
@@ -92,9 +92,9 @@ Altere as variáveis de ambiente
 cp fairplay-web/.env.example fairplay-web/.env
 ```
 ```
-API_URL = http://api.fairplay.test/api
-API_URL_SOCKET = http://api.fairplay.test:6001
-API_URL_STORAGE = http://api.fairplay.test/storage
+API_URL = http://localhost:8081/api
+API_URL_SOCKET = http://localhost:8081:6001
+API_URL_STORAGE = http://localhost:8081/storage
 ```
 
 ## 💻 Docker
@@ -110,17 +110,6 @@ Ajuste a configuração do Laravel Echo Server (websockets)
 
 ```
 cp docker/laravel-echo-server/laravel-echo-server.example.json docker/laravel-echo-server/laravel-echo-server.json
-```
-
-Adicione os endereços
-
-```
-# apenas para localhost
-
-nano /etc/hosts
-
-127.0.0.1       fairplay.test
-127.0.0.1       api.fairplay.test
 ```
 
 Suba os serviços pela primeira vez
@@ -174,8 +163,8 @@ yarn dev
 ```
 
 
-- frontend: http://fairplay.test
-- backend: http://api.fairplay.test
+- frontend: http://localhost
+- backend: http://localhost:8081
 
 
 

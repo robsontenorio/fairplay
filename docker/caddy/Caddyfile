@@ -1,6 +1,6 @@
 # Docs: https://caddyserver.com/docs/caddyfile
 
-fairplay.test:80 {
+localhost:80 {
     # ---- PRODUCTION -----
     # root /var/www/web/dist
     
@@ -17,7 +17,7 @@ fairplay.test:80 {
     proxy / node:3000    
 }
 
-api.fairplay.test:80 {
+localhost:8081 {
     root /var/www/api/public
 
     fastcgi / php-fpm:9000 php {
